@@ -1,5 +1,5 @@
 {
-  "name": "react-csv-importer",
+  "name": "@n2o1988/react-csv-importer",
   "version": "0.8.1",
   "description": "React CSV import widget with user-customizable mapping",
   "keywords": [
