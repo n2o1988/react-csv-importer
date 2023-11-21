@@ -31,25 +31,31 @@ export function Importer<Row extends BaseRow>(
     onClose,
     children: content,
     locale: userLocale,
+    fieldAssignments,
     ...customPapaParseConfig
   } = props;
-
   // helper to combine our displayed content and the user code that provides field definitions
+  const initialFieldsState = useMemo(
+    () => (fieldAssignments ? { fieldAssignments } : null),
+    [fieldAssignments]
+  );
   const [fields, userFieldContentWrapper] = useFieldDefinitions();
 
   const [fileState, setFileState] = useState<FileStepState | null>(null);
   const [fileAccepted, setFileAccepted] = useState<boolean>(false);
 
-  const [fieldsState, setFieldsState] = useState<FieldsStepState | null>(null);
+  const [fieldsState, setFieldsState] = useState<FieldsStepState | null>(
+    initialFieldsState
+  );
   const [fieldsAccepted, setFieldsAccepted] = useState<boolean>(false);
 
   // reset field assignments when file changes
   const activeFile = fileState && fileState.file;
   useEffect(() => {
     if (activeFile) {
-      setFieldsState(null);
+      setFieldsState(initialFieldsState);
     }
-  }, [activeFile]);
+  }, [activeFile, initialFieldsState]);
 
   const externalPreview = useMemo<ImporterFilePreview | null>(() => {
     // generate stable externally-visible data objects
@@ -142,7 +148,7 @@ export function Importer<Row extends BaseRow>(
                   // reset all state
                   setFileState(null);
                   setFileAccepted(false);
-                  setFieldsState(null);
+                  setFieldsState(initialFieldsState);
                   setFieldsAccepted(false);
                 }
               : undefined
