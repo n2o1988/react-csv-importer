@@ -62,6 +62,10 @@ export const FieldsStep: React.FC<{
 
   // make sure there are no extra fields
   useEffect(() => {
+    if (fields.length === 0) {
+      // Defer removal logic until fields have loaded from children components
+      return;
+    }
     const removedFieldNames = Object.keys(fieldAssignments).filter(
       (existingFieldName) =>
         !fields.some((field) => field.name === existingFieldName)

@@ -1,6 +1,11 @@
 import React from 'react';
 import { ImporterLocale } from '../locale';
-import { CustomizablePapaParseConfig, ParseCallback, BaseRow } from '../parser';
+import {
+  CustomizablePapaParseConfig,
+  ParseCallback,
+  BaseRow,
+  FieldAssignmentMap
+} from '../parser';
 
 // information for displaying a spreadsheet-style column
 export interface ImporterPreviewColumn {
@@ -66,4 +71,5 @@ export type ImporterProps<Row extends BaseRow> = ImporterDataHandlerProps<
   onClose?: (info: ImportInfo) => void;
   children?: ImporterContentRenderProp | React.ReactNode;
   locale?: ImporterLocale;
+  fieldAssignments?: FieldAssignmentMap;
 } & CustomizablePapaParseConfig;
